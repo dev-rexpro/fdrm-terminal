@@ -5,7 +5,7 @@ import {
   PreName,
   Seperator,
 } from "../styles/Welcome.styled";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   isLatest?: boolean;
@@ -26,14 +26,13 @@ const BootedContent = () => (
 █████╗  ███████║██║  ██║███████║██║     ██║   ██║██████╔╝    ██████╔╝███████║███████║██╔████╔██║███████║██╔██╗ ██║
 ██╔══╝  ██╔══██║██║  ██║██╔══██║██║     ██║   ██║██╔══██╗    ██╔══██╗██╔══██║██╔══██║██║╚██╔╝██║██╔══██║██║╚██╗██║
 ██║     ██║  ██║██████╔╝██║  ██║███████╗╚██████╔╝██║  ██║    ██║  ██║██║  ██║██║  ██║██║ ╚═╝ ██║██║  ██║██║ ╚████║
-╚═╝     ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
-                                                                                                                  `}
+╚═╝     ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ▕═╝    ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝                                                                                                                   `}
     </PreName>
     <div>Welcome to my terminal portfolio. (Version 1.3.1)</div>
     <Seperator>----</Seperator>
     <div>
       This project's source code can be found in this project's{" "}
-      <Link href="https://github.com/rexpro">
+      <Link href="https://github.com/dev-rexpro">
         GitHub repo
       </Link>
       .
@@ -49,9 +48,11 @@ const Welcome: React.FC<Props> = ({ isLatest = false }) => {
   const [progress, setProgress] = useState(0);
   const [ready, setReady] = useState(false);
   const shouldBoot = isLatest && !booted.done;
+  const mountedRef = useRef(false);
 
   useEffect(() => {
     if (!shouldBoot) {
+      setProgress(100);
       setReady(true);
       return;
     }
@@ -62,16 +63,37 @@ const Welcome: React.FC<Props> = ({ isLatest = false }) => {
 
     for (let i = 0; i < PROGRESS_STEPS.length; i++) {
       timers.push(
-        setTimeout(() => setProgress(PROGRESS_STEPS[i]), TIMER_DELAYS[i])
+        setTimeout(() => {
+          if (!mountedRef.current) return;
+          setProgress(PROGRESS_STEPS[i]);
+        }, TIMER_DELAYS[i])
       );
     }
 
-    timers.push(setTimeout(() => setReady(true), 2600));
+    timers.push(
+      setTimeout(() => {
+        if (!mountedRef.current) return;
+        setReady(true);
+      }, 2600)
+    );
+
+    mountedRef.current = true;
 
     return () => {
+      mountedRef.current = false;
       timers.forEach(clearTimeout);
     };
-  }, [shouldBoot]);
+  }, []);
+
+  if (ready) {
+    return (
+      <HeroContainer data-testid="welcome">
+        <div className="info-section">
+          <BootedContent />
+        </div>
+      </HeroContainer>
+    );
+  }
 
   return (
     <HeroContainer data-testid="welcome">
@@ -81,7 +103,7 @@ const Welcome: React.FC<Props> = ({ isLatest = false }) => {
         </div>
         <div>{"Initializing terminal environment..."}</div>
         <div>{`Loading modules: [${"#".repeat(Math.floor(progress / 10))}${".".repeat(Math.max(0, 10 - Math.floor(progress / 10)))}] ${progress}%`}</div>
-        {!ready ? <div>{"Please wait..."}</div> : <BootedContent />}
+        <div>{"Please wait..."}</div>
       </div>
     </HeroContainer>
   );

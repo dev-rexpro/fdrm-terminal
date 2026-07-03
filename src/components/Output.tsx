@@ -25,7 +25,7 @@ const Output: React.FC<Props> = ({ index, cmd }) => {
   const { arg, loadedCmds } = useContext(termContext);
 
   const specialCmds = ["projects", "socials", "themes", "echo"];
-  const noLoadCmds = ["clear", "welcome", "help", "gui"];
+  const noLoadCmds = ["clear", "welcome", "help", "gui", "whoami"];
 
   if (!specialCmds.includes(cmd) && arg.length > 0)
     return <UsageDiv data-testid="usage-output">Usage: {cmd}</UsageDiv>;
