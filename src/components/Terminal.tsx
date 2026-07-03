@@ -49,6 +49,7 @@ type Term = {
   rerender: boolean;
   index: number;
   clearHistory?: () => void;
+  loadedCmds: Set<string>;
 };
 
 export const termContext = createContext<Term>({
@@ -56,11 +57,13 @@ export const termContext = createContext<Term>({
   history: [],
   rerender: false,
   index: 0,
+  loadedCmds: new Set<string>(),
 });
 
 const Terminal = () => {
   const containerRef = useRef(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const loadedCmdsRef = useRef(new Set<string>());
 
   const [inputVal, setInputVal] = useState("");
   const [cmdHistory, setCmdHistory] = useState<string[]>(["welcome"]);
@@ -217,9 +220,10 @@ const Terminal = () => {
           rerender,
           index,
           clearHistory,
+          loadedCmds: loadedCmdsRef.current,
         };
         return (
-          <div key={_.uniqueId(`${cmdH}_`)}>
+          <div key={`${index}-${cmdH}`}>
             <div>
               <TermInfo />
               <MobileBr />

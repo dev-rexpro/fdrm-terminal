@@ -30,7 +30,7 @@ const Projects: React.FC = () => {
 
   /* ===== check arg is valid ===== */
   const checkArg = () =>
-    isArgInvalid(arg, "go", ["1", "2", "3", "4"]) ? (
+    isArgInvalid(arg, "go", ["1", "2", "3", "4", "5"]) ? (
       <Usage cmd="projects" />
     ) : null;
 
@@ -56,27 +56,33 @@ const Projects: React.FC = () => {
 const projects = [
   {
     id: 1,
-    title: "Sat Naing's Blog",
-    desc: "My personal blog where I can write down my thoughts and experiences.",
-    url: "https://satnaing.dev/blog/",
+    title: "Rexpro-AI",
+    desc: "AI-powered platform automating complex workflows and decision-making pipelines for enterprise operations.",
+    url: "https://rexpro-ai.example.com/",
   },
   {
     id: 2,
-    title: "Haru Fashion",
-    desc: "An ecommerce web application where users can browse various products and make purchases.",
-    url: "https://haru-fashion.vercel.app/",
+    title: "OmniBookLM",
+    desc: "Cross-platform knowledge base that unifies documents, notes, and AI-assisted retrieval in one workspace.",
+    url: "https://omnibooklm.example.com/",
   },
   {
     id: 3,
-    title: "Haru API",
-    desc: "A RESTful API developed for the Haru fashion ecommerce project.",
-    url: "https://satnaing.github.io/haru-api/",
+    title: "OmniChat",
+    desc: "Unified conversational interface integrating multiple communication channels and AI-assisted response orchestration.",
+    url: "https://omnichat.example.com/",
   },
   {
     id: 4,
-    title: "AstroPaper Blog Theme",
-    desc: "A minimal, accessible and SEO-friendly Astro blog theme.",
-    url: "https://astro-paper.pages.dev/",
+    title: "OmniSearch",
+    desc: "Scalable semantic search engine with natural language understanding and multi-source indexing.",
+    url: "https://omnisearch.example.com/",
+  },
+  {
+    id: 5,
+    title: "ERP-One",
+    desc: "End-to-end enterprise resource planning system unifying finance, inventory, HR, and operations in a single platform.",
+    url: "https://erp-one.example.com/",
   },
 ];
 

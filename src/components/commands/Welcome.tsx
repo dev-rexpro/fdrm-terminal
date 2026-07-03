@@ -2,79 +2,86 @@ import {
   Cmd,
   HeroContainer,
   Link,
-  PreImg,
   PreName,
-  PreNameMobile,
-  PreWrapper,
   Seperator,
 } from "../styles/Welcome.styled";
+import { useEffect, useState } from "react";
 
-const Welcome: React.FC = () => {
+type Props = {
+  isLatest?: boolean;
+};
+
+const TIMER_DELAYS = [80, 150, 220, 300, 520, 850, 1200, 1600, 2100, 2600];
+const PROGRESS_STEPS = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+
+const booted = { done: false };
+
+const BootedContent = () => (
+  <>
+    <div>{"Connection established (SSH/TLS 1.3)"}</div>
+    <div>{"Environment ready. Welcome back."}</div>
+    <PreName>
+      {`███████╗ █████╗ ██████╗ ██╗  ██╗██╗     ██╗   ██╗██████╗     ██████╗  █████╗ ██╗  ██╗███╗   ███╗ █████╗ ███╗   ██╗
+██╔════╝██╔══██╗██╔══██╗██║  ██║██║     ██║   ██║██╔══██╗    ██╔══██╗██╔══██╗██║  ██║████╗ ████║██╔══██╗████╗  ██║
+████╗  ███████║██║  ██║███████║██║     ██║   ██║██████╔╝    ██████╔╝███████║███████║██╔████╔██║███████║██╔██╗ ██║
+██╔══╝  ██╔══██║██║  ██║██╔══██║██║     ██║   ██║██╔══██╗    ██╔══██╗██╔══██║██╔══██║██║╚██╔╝██║██╔══██║██║╚██╗██║
+██║     ██║  ██║██████╔╝██║  ██║███████╗╚██████╔╝██║  ██║    ██║  ██║██║  ██║██║  ██║██║ ╚═╝ ██║██║  ██║██║ ╚████║
+╚═╝     ╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
+                                                                                                                  `}
+    </PreName>
+    <div>Welcome to my terminal portfolio. (Version 1.3.1)</div>
+    <Seperator>----</Seperator>
+    <div>
+      This project's source code can be found in this project's{" "}
+      <Link href="https://github.com/rexpro">
+        GitHub repo
+      </Link>
+      .
+    </div>
+    <Seperator>----</Seperator>
+    <div>
+      For a list of available commands, type `<Cmd>help</Cmd>`.
+    </div>
+  </>
+);
+
+const Welcome: React.FC<Props> = ({ isLatest = false }) => {
+  const [progress, setProgress] = useState(0);
+  const [ready, setReady] = useState(false);
+  const shouldBoot = isLatest && !booted.done;
+
+  useEffect(() => {
+    if (!shouldBoot) {
+      setReady(true);
+      return;
+    }
+
+    booted.done = true;
+
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
+    for (let i = 0; i < PROGRESS_STEPS.length; i++) {
+      timers.push(
+        setTimeout(() => setProgress(PROGRESS_STEPS[i]), TIMER_DELAYS[i])
+      );
+    }
+
+    timers.push(setTimeout(() => setReady(true), 2600));
+
+    return () => {
+      timers.forEach(clearTimeout);
+    };
+  }, [shouldBoot]);
+
   return (
     <HeroContainer data-testid="welcome">
       <div className="info-section">
-        <PreName>
-          {`        
-    _____       __     _   __      _            
-   / ___/____ _/ /_   / | / /___ _(_)___  ____ _
-   \\__ \\/ __ \`/ __/  /  |/ / __ \`/ / __  / __ \`/
-  ___/ / /_/ / /_   / /|  / /_/ / / / / / /_/ / 
- /____/\\__,_/\\___/ /_/ |_/\\__,_/_/_/ /_/\\__, /  
-                                       /____/   
-          `}
-        </PreName>
-        <PreWrapper>
-          <PreNameMobile>
-            {`
-    ____     __          
-   / __/__ _/ /_         
-  _\\ \\/ _ \`/ __/         
- /___/\\_,_/\\__/          
-    _  __     _          
-   / |/ /__ _(_)__  ___ _
-  /    / _ \`/ / _ \\/ _ \`/
- /_/|_/\\_,_/_/_//_/\\_, / 
-                  /___/  
- 
-          `}
-          </PreNameMobile>
-        </PreWrapper>
-        <div>Welcome to my terminal portfolio. (Version 1.3.1)</div>
-        <Seperator>----</Seperator>
         <div>
-          This project's source code can be found in this project's{" "}
-          <Link href="https://github.com/satnaing/terminal-portfolio">
-            GitHub repo
-          </Link>
-          .
+          <span style={{ color: "#a2d2ff" }}>admin</span>@<span style={{ color: "#cdb4db" }}>rexpro.cloud</span>:{`//home/fadhlur`}$
         </div>
-        <Seperator>----</Seperator>
-        <div>
-          For a list of available commands, type `<Cmd>help</Cmd>`.
-        </div>
-      </div>
-      <div className="illu-section">
-        <PreImg>
-          {`
-                       ,##,,eew,
-                     ,##############C
-                  a###############@##
-                 7####^\`^"7W7^"@####
-                 @#@b\`         ^@#@^
-                  ##^,,,,   ,,,,^#^
-                 ,,@######"#######=
-                  .''555"\` '5555b|
-                  T"@  ,,,^,mg,@,*
-                     %p||\`~~'.#\`
-                      ^Wp  ,#T
-                     :b''@@b^}
-                  ,^     \` 'b 3-
-              .<\` 'p   ^v   #   b   *.
-            {      }   #"GpGb   [
-            C      3 * @#######Nl      \`
-           '            ^@##b     ($    !
-         `}
-        </PreImg>
+        <div>{"Initializing terminal environment..."}</div>
+        <div>{`Loading modules: [${"#".repeat(Math.floor(progress / 10))}${".".repeat(Math.max(0, 10 - Math.floor(progress / 10)))}] ${progress}%`}</div>
+        {!ready ? <div>{"Please wait..."}</div> : <BootedContent />}
       </div>
     </HeroContainer>
   );

@@ -16,8 +16,11 @@ export const HeroContainer = styled.div`
 `;
 
 export const PreName = styled.pre`
-  margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
+  font-size: 10px;
+  margin-top: 2px;
+  margin-bottom: 4px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 
   @media (max-width: 550px) {
     display: none;
@@ -29,8 +32,11 @@ export const PreWrapper = styled.div`
 `;
 
 export const PreNameMobile = styled.pre`
-  margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
+  font-size: 10px;
+  margin-top: 2px;
+  margin-bottom: 4px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 
   @media (min-width: 550px) {
     display: none;

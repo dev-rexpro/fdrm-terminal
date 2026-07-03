@@ -101,6 +101,22 @@ const theme: Themes = {
       },
     },
   },
+  console: {
+    id: "T_007",
+    name: "console",
+    colors: {
+      body: "#000000",
+      scrollHandle: "#2A2A2A",
+      scrollHandleHover: "#3E3E3E",
+      primary: "#FFFFFF",
+      secondary: "#CCCCCC",
+      text: {
+        100: "#FFFFFF",
+        200: "#E0E0E0",
+        300: "#B0B0B0",
+      },
+    },
+  },
 };
 
 export default theme;

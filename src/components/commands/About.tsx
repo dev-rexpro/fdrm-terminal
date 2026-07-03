@@ -8,15 +8,13 @@ const About: React.FC = () => {
   return (
     <AboutWrapper data-testid="about">
       <p>
-        Hi, my name is <HighlightSpan>Sat Naing</HighlightSpan>!
+        Hi, my name is <HighlightSpan>Fadhlur Rahman</HighlightSpan>!
       </p>
       <p>
-        I'm <HighlightAlt>a full-stack developer</HighlightAlt> based in Yangon,
-        Myanmar.
+        I'm <HighlightAlt>a Full Stack Developer &amp; DevOps Engineer</HighlightAlt> based in Bogor, Indonesia.
       </p>
       <p>
-        I am passionate about writing codes and <br />
-        developing web applications to solve real-life challenges.
+        I specialize in designing, building, and scaling end-to-end systems spanning frontend interfaces, backend services, and cloud infrastructure. I focus on automation, reliability, and performance across the entire delivery lifecycle.
       </p>
     </AboutWrapper>
   );
