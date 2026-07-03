@@ -13,30 +13,32 @@ export const HeroContainer = styled.div`
       flex-basis: 50%;
     }
   }
+
+  pre {
+    font-family: monospace;
+    white-space: pre;
+  }
 `;
 
 export const PreName = styled.pre`
-  font-size: 10px;
-  margin-top: 2px;
-  margin-bottom: 4px;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-size: 7px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 12px;
+  line-height: 1;
 
   @media (max-width: 550px) {
     display: none;
   }
 `;
 
-export const PreWrapper = styled.div`
-  text-align: center;
-`;
+export const PreWrapper = styled.div``;
 
 export const PreNameMobile = styled.pre`
-  font-size: 10px;
-  margin-top: 2px;
-  margin-bottom: 4px;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-size: 7px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  line-height: 1;
 
   @media (min-width: 550px) {
     display: none;

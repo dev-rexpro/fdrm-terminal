@@ -47,7 +47,7 @@ const Output: React.FC<Props> = ({ index, cmd }) => {
             pwd: <GeneralOutput>/home/satnaing</GeneralOutput>,
             socials: <Socials />,
             themes: <Themes />,
-            welcome: <Welcome />,
+             welcome: <Welcome isLatest={index === 0} />,
             whoami: <GeneralOutput>visitor</GeneralOutput>,
           }[cmd]
         }
@@ -94,7 +94,7 @@ const Output: React.FC<Props> = ({ index, cmd }) => {
           pwd: <GeneralOutput>/home/satnaing</GeneralOutput>,
           socials: <Socials />,
           themes: <Themes />,
-          welcome: <Welcome />,
+          welcome: <Welcome isLatest={index === 0} />,
           whoami: <GeneralOutput>visitor</GeneralOutput>,
         }[cmd]
       )}
